@@ -1,13 +1,18 @@
+var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+                            window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+
+var cancelAnimationFrame = window.cancelAnimationFrame || window.mozCancelAnimationFrame;
+
+var myReq;
+
 function startBounce() {
-  requestAnimationFrame(moveBallToBottom);
+  myReq = requestAnimationFrame(moveBallToBottom);
   ableStopButton();
   disableStartButton();
-
 };
  
 function stopBounce() {
-  cancelAnimationFrame(moveBallToTop);
-  cancelAnimationFrame(moveBallToBottom);
+  cancelAnimationFrame(myReq);
   disableStopButton();
   ableStartButton();
 
@@ -40,9 +45,10 @@ function moveBallToTop() {
  
   if (topBallSpace > 0) {
     ball.style.top = (topBallSpace - movement) + 'px';  
-    requestAnimationFrame(moveBallToTop);
+    myReq = requestAnimationFrame(moveBallToTop);
   } else {
-    requestAnimationFrame(moveBallToBottom);
+    cancelAnimationFrame(myReq);
+    myReq = requestAnimationFrame(moveBallToBottom);
   }
 };
  
@@ -55,7 +61,8 @@ function moveBallToBottom() {
     ball.style.top = (topBallSpace + movement) + 'px';
     requestAnimationFrame(moveBallToBottom);
   } else {
-    requestAnimationFrame(moveBallToTop);
+    cancelAnimationFrame(myReq)
+    myReq = requestAnimationFrame(moveBallToTop);
   }
 };
 
