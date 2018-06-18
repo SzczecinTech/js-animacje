@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style type="text/css">
+			#frame {
+			  border: 0px solid;
+			  width: 200px;
+			  height: 200px;
+			}
+
+			#object {
+			  padding: 10px;
+			  height: 40%;
+			  width: 40%;
+			  border-radius: 20%;
+			  position: relative;
+			  background-color: orange;
+			  left: 50%;
+			  top: 50%;
+			}
+		</style>
+		
+		<script type="text/javascript">
+			function moveUp() {
+			  var object = document.getElementById("object");
+			  var up = parseFloat(getComputedStyle(object).top);
+			  var movement = 5;
+			  
+			  if (up > 0) {
+			    object.style.top = (up - movement) + 'px';
+			    requestAnimationFrame(moveUp);
+			  } else {
+			    moveLeft();
+			  }
+			}
+
+			function moveDown() {
+			  var object = document.getElementById("object");
+			  var up = parseFloat(getComputedStyle(object).top);
+			  var movement = 5;
+			  
+			  if (up < 100) {
+			    object.style.top = (up + movement) + 'px';
+			    requestAnimationFrame(moveDown);
+			  } else {
+			    moveRight();
+			  }
+			}
+
+			function moveLeft() {
+			  var object = document.getElementById("object");
+			  var left = parseFloat(getComputedStyle(object).left);
+			  var movement = 5;
+			  
+			  if (left > 0) {
+			    object.style.left = (left - movement) + 'px';
+			    requestAnimationFrame(moveLeft);
+			  } else {
+			    moveDown();
+			  }
+			}
+
+
+			function moveRight() {
+			  var object = document.getElementById("object");
+			  var left = parseFloat(getComputedStyle(object).left);
+			  var movement = 5;
+			  
+			  if (left < 100) {
+			    object.style.left = (left + movement) + 'px';
+			    requestAnimationFrame(moveRight);
+			  } else {
+			    moveUp();
+			  }
+			}
+		</script>
+		
+	</head>
+
+	<body>
+
+		<button id="start" onclick="moveUp()">START</button>
+		<div id="frame">
+		  <div id="object"></div>
+		</div>
+
+	</body>
+</html>
